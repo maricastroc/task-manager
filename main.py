@@ -9,19 +9,20 @@ def main():
     print("2. See Tasks")
     print("3. Edit Task")
     print("4. Finish Task")
-    print("5. Delete Finished Tasks")
-    print("6. Leave Menu")
+    print("5. Delete Task")
+    print("6. Delete Finished Tasks")
+    print("7. Leave Menu")
 
     option = input("\nEnter your choice: ")
 
     if not option.isdigit():
-      print('\nInvalid choice...')
+      print('\nInvalid choice.')
       continue
     
     option = int(option)
 
-    if option < 1 or option > 6:
-      print('\nInvalid Choice...')
+    if option < 1 or option > 7:
+      print('\nInvalid Choice.')
       continue
 
     elif option == 1:
@@ -42,7 +43,6 @@ def main():
 
     elif option == 3:
       try:
-        print('\nList of all tasks:')
         print(manager.list_tasks())
 
         while True:
@@ -85,7 +85,6 @@ def main():
 
     elif option == 4:
       try:
-        print('\nList of all tasks:')
         print(manager.list_tasks())
 
         while True:
@@ -108,8 +107,33 @@ def main():
         print('\nTask successfully updated!')
       except ValueError as e:
         print(e)
+
     elif option == 5:
-      print(f"\n {manager.list_finished_tasks()}")
+      try:
+        print(manager.list_tasks())
+
+        while True:
+          index_input = input("\nEnter the task number you want to delete: ")
+
+          if not index_input.isdigit():
+              print("\nInvalid task index.")
+              continue
+
+          index = int(index_input) - 1
+
+          if index < 0 or index >= len(manager.tasks):
+              print("\nInvalid task index.")
+              continue
+
+          break
+
+        manager.delete_task(index)
+
+        print('\nTask successfully deleted!')
+      except ValueError as e:
+        print(e)
+    elif option == 6:
+      print(f"\n{manager.list_finished_tasks()}")
 
       completed_tasks = [task for task in manager.tasks if task.completed]
 
@@ -130,7 +154,7 @@ def main():
         print("\nTasks successfully deleted!")
       
       continue
-    elif option == 6:
+    elif option == 7:
       break
 
   print('See you soon!')

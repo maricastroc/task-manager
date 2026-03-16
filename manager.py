@@ -17,9 +17,10 @@ class TaskManager:
 
     for index, task in enumerate(self.tasks):
       status = "[ ✅ ]" if task.completed else "[ ❌ ]"
+    
       result.append(f"{index + 1}. {status} {task.name}")
 
-      return "\n".join(result)
+    return "\n".join(result)
     
   def edit_task(self, index: int, new_name=None, new_status=None) -> None:
     if index < 0 or index >= len(self.tasks):
@@ -42,6 +43,12 @@ class TaskManager:
     task = self.tasks[index]
 
     task.completed = True
+
+  def delete_task(self, index: int) -> None:
+    if index < 0 or index >= len(self.tasks):
+      raise ValueError('Invalid task index.')
+    
+    self.tasks.pop(index)
 
   def list_finished_tasks(self) -> str:
     if not self.tasks:
