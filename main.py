@@ -1,0 +1,85 @@
+from manager import TaskManager
+
+def main():
+  manager = TaskManager()
+
+  while True:
+    print("\nTask List Manager Menu")
+    print("\n1. Add Task")
+    print("2. See Tasks")
+    print("3. Edit Task")
+    print("4. Finish Task")
+    print("5. Delete Finished Tasks")
+    print("6. Leave Menu")
+
+    option = input("\nEnter your choice: ")
+
+    if not option.isdigit():
+      print('\nInvalid choice...')
+      continue
+    
+    option = int(option)
+
+    if option < 1 or option > 6:
+      print('\nInvalid Choice...')
+      continue
+
+    elif option == 1:
+      task_name = input("\nPlease, inform your task's name: ").strip()
+
+      if not task_name:
+        print('\nInvalid name.')
+      else:
+        manager.add_task(task_name)
+        print('\nTask successfully added!')
+
+    elif option == 2:
+      print('\nList of all tasks:')
+      print(manager.list_tasks())
+
+    elif option == 3:
+      try:
+        print('\nList of all tasks:')
+        print(manager.list_tasks())
+
+        index_input = input("\nEnter the task number: ")
+
+        if not index_input.isdigit():
+          print("\nInvalid task index.")
+          continue
+
+        index = int(index_input) - 1
+
+        if index < 0 or index >= len(manager.tasks):
+          print("\nInvalid task index.")
+          continue
+
+        new_name = input("\nNew name (empty to keep): ").strip() or None
+
+        while True:
+          status_input = input("\nIs task completed? (y/n or empty): ").strip().lower()
+
+          if status_input in ("y", "n", ""):
+            break
+
+          print('\nInvalid option.')
+
+        new_status = None
+
+        if status_input == "y":
+            new_status = True
+        elif status_input == "n":
+            new_status = False
+
+        manager.edit_task(index, new_name, new_status)
+
+        print('\nTask successfully updated!')
+      except ValueError as e:
+        print(e)
+    elif option == 6:
+      break
+
+  print('See you soon!')
+
+if __name__ == "__main__":
+    main()
