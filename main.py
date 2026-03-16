@@ -34,8 +34,11 @@ def main():
         print('\nTask successfully added!')
 
     elif option == 2:
-      print('\nList of all tasks:')
-      print(manager.list_tasks())
+      try:
+        print(manager.list_tasks())
+
+      except ValueError as e:
+        print(e)
 
     elif option == 3:
       try:
@@ -79,6 +82,54 @@ def main():
         print('\nTask successfully updated!')
       except ValueError as e:
         print(e)
+
+    elif option == 4:
+      try:
+        print('\nList of all tasks:')
+        print(manager.list_tasks())
+
+        while True:
+          index_input = input("\nEnter the task number: ")
+
+          if not index_input.isdigit():
+              print("\nInvalid task index.")
+              continue
+
+          index = int(index_input) - 1
+
+          if index < 0 or index >= len(manager.tasks):
+              print("\nInvalid task index.")
+              continue
+
+          break
+
+        manager.finish_task(index)
+
+        print('\nTask successfully updated!')
+      except ValueError as e:
+        print(e)
+    elif option == 5:
+      print(f"\n {manager.list_finished_tasks()}")
+
+      completed_tasks = [task for task in manager.tasks if task.completed]
+
+      if len(completed_tasks) == 0:
+        continue
+
+      while True:
+          user_input = input("\nDo you really want to delete all finished tasks? (y/n): ").strip().lower()
+
+          if user_input not in ("y", "n"):
+              print("\nInvalid option.")
+              continue
+
+          break
+
+      if user_input == "y":
+        manager.delete_finished_tasks()
+        print("\nTasks successfully deleted!")
+      
+      continue
     elif option == 6:
       break
 
