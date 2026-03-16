@@ -22,7 +22,7 @@ class TaskManager:
 
     return "\n".join(result)
     
-  def edit_task(self, index: int, new_name=None, new_status=None) -> None:
+  def edit_task(self, index: int, new_name: str | None = None, new_status: bool | None = None) -> None:
     if index < 0 or index >= len(self.tasks):
       raise ValueError('Invalid task index.')
     
@@ -40,9 +40,7 @@ class TaskManager:
     if index < 0 or index >= len(self.tasks):
       raise ValueError('Invalid task index.')
     
-    task = self.tasks[index]
-
-    task.completed = True
+    self.tasks[index].completed = True
 
   def delete_task(self, index: int) -> None:
     if index < 0 or index >= len(self.tasks):

@@ -137,7 +137,7 @@ def main():
 
       completed_tasks = [task for task in manager.tasks if task.completed]
 
-      if len(completed_tasks) == 0:
+      if not completed_tasks:
         continue
 
       while True:
