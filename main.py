@@ -42,17 +42,20 @@ def main():
         print('\nList of all tasks:')
         print(manager.list_tasks())
 
-        index_input = input("\nEnter the task number: ")
+        while True:
+          index_input = input("\nEnter the task number: ")
 
-        if not index_input.isdigit():
-          print("\nInvalid task index.")
-          continue
+          if not index_input.isdigit():
+              print("\nInvalid task index.")
+              continue
 
-        index = int(index_input) - 1
+          index = int(index_input) - 1
 
-        if index < 0 or index >= len(manager.tasks):
-          print("\nInvalid task index.")
-          continue
+          if index < 0 or index >= len(manager.tasks):
+              print("\nInvalid task index.")
+              continue
+
+          break
 
         new_name = input("\nNew name (empty to keep): ").strip() or None
 
